@@ -5,6 +5,7 @@ import Button from '../../Components/Button';
 import TagType from '../../Types/TagType';
 import styles from './styles.module.css';
 import tagsFixture from '../../Data/tags.json';
+import Datepicker from '../../Components/Datepicker';
 
 export default function Home() {
 	const [tagForAdd, setTagForAdd] = useState<TagType>({
@@ -92,6 +93,10 @@ export default function Home() {
 								})
 							}
 						/>
+					</label>
+					<label className=" text-white text-sm font-bold" htmlFor="date">
+						Data
+						<Datepicker />
 					</label>
 					<div className="flex items-end justify-center ">
 						<Button isLoading={isLoading} disabled={isLoading} type="submit">
