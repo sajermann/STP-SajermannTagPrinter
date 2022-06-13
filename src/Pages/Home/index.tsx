@@ -80,22 +80,6 @@ export default function Home() {
 
 					<label className=" text-white text-sm font-bold" htmlFor="date">
 						Data
-						<input
-							id="date"
-							className={styles.input}
-							data-testid="inputQuantity"
-							placeholder="Data"
-							value={tagForAdd.date}
-							onChange={e =>
-								setTagForAdd({
-									...tagForAdd,
-									date: e.target.value,
-								})
-							}
-						/>
-					</label>
-					<label className=" text-white text-sm font-bold" htmlFor="date">
-						Data
 						<Datepicker />
 					</label>
 					<div className="flex items-end justify-center ">

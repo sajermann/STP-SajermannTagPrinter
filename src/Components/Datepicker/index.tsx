@@ -1,4 +1,4 @@
-import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import ptBr from 'date-fns/locale/pt-BR';
 import { useState } from 'react';
 import masks from '../../Utils/Masks';
@@ -6,16 +6,12 @@ import masks from '../../Utils/Masks';
 registerLocale('pt-BR', ptBr);
 
 type PropsHours = {
-	handleChangeHour: (hour: Date | null) => void;
 	startDate: Date | undefined;
 	setStartDate: (date: Date | undefined) => void;
 };
-function ExampleCustomTimeInput({
-	handleChangeHour,
-	startDate,
-	setStartDate,
-}: PropsHours) {
+function ExampleCustomTimeInput({ startDate, setStartDate }: PropsHours) {
 	function handleChangeHourInternal(hour: Date | null) {
+		console.log(hour);
 		if (!hour) {
 			return;
 		}
@@ -33,10 +29,10 @@ function ExampleCustomTimeInput({
 			onChange={handleChangeHourInternal}
 			showTimeSelect
 			showTimeSelectOnly
-			timeIntervals={15}
-			dateFormat="h:mm aa"
+			timeIntervals={5}
+			timeFormat="HH:mm"
 			className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full grid grid-cols-12 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-			value={startDate}
+			value={masks.formatHour(startDate as Date)}
 		/>
 	);
 }
@@ -50,10 +46,6 @@ export default function Datepicker() {
 		}
 	}
 
-	function handleChangeHour(hour: Date | null) {
-		console.log(hour?.toISOString());
-	}
-
 	return (
 		<DatePicker
 			selected={startDate}
@@ -61,7 +53,6 @@ export default function Datepicker() {
 			locale="pt-BR"
 			timeFormat="HH:mm"
 			timeInputLabel="Hora:"
-			// dateFormat="dd/MM/yyyy hh:mm:ss"
 			showTimeInput
 			className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full grid grid-cols-12 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
 			value={masks.formatDateAndHour(startDate as Date)}
@@ -70,7 +61,6 @@ export default function Datepicker() {
 				<ExampleCustomTimeInput
 					startDate={startDate}
 					setStartDate={setStartDate}
-					handleChangeHour={handleChangeHour}
 				/>
 			}
 		/>

@@ -1,3 +1,4 @@
 import { formatDateAndHour } from './DateAndHour';
+import { formatHour } from './Hour';
 
-export default { formatDateAndHour };
+export default { formatDateAndHour, formatHour };
