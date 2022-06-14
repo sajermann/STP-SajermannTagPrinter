@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Button from '../../Components/Button';
 import TagType from '../../Types/TagType';
 import styles from './styles.module.css';
@@ -10,9 +10,9 @@ import Datepicker from '../../Components/Datepicker';
 export default function Home() {
 	const [tagForAdd, setTagForAdd] = useState<TagType>({
 		id: '',
-		date: '',
+		date: '2018-12-10T13:49:51.141Z',
 		product: '',
-		quantity: 0,
+		quantity: '',
 	});
 
 	const [tagsAddeds, setTagsAddeds] = useState<TagType[]>([...tagsFixture]);
@@ -21,24 +21,48 @@ export default function Home() {
 	useEffect(() => console.log(tagForAdd), [tagForAdd]);
 
 	async function load() {
-		setIsLoading(true);
-		const tagsTemp = [...tagsAddeds];
-		const datesTemp = tagForAdd.date.split('/');
-		tagsTemp.push({
-			...tagForAdd,
-			date: new Date(
-				`${datesTemp[2]}-${datesTemp[1]}-${datesTemp[0]}`
-			).toISOString(),
-			id: Math.random().toString(),
-		});
-		setTagsAddeds(tagsTemp);
-		setIsLoading(false);
+		// setIsLoading(true);
+		// const tagsTemp = [...tagsAddeds];
+		// const datesTemp = tagForAdd.date.split('/');
+		// tagsTemp.push({
+		// 	...tagForAdd,
+		// 	date: new Date(
+		// 		`${datesTemp[2]}-${datesTemp[1]}-${datesTemp[0]}`
+		// 	).toISOString(),
+		// 	id: Math.random().toString(),
+		// });
+		// setTagsAddeds(tagsTemp);
+		// setIsLoading(false);
 	}
 
 	function handleSubmit(event: FormEvent) {
+		setTagForAdd({ ...tagForAdd, date: '' });
 		console.log('Submit');
 		event.preventDefault();
 		load();
+	}
+
+	function handleInput(e: ChangeEvent<HTMLInputElement>) {
+		const { value } = e.target;
+		const valueTrated = value.replace(',', '.');
+		console.log(valueTrated);
+		console.log(Number.isNaN(Number(valueTrated)));
+		if (Number.isNaN(Number(valueTrated))) {
+			return;
+		}
+		setTagForAdd({ ...tagForAdd, quantity: valueTrated });
+	}
+
+	function verifyDate() {
+		try {
+			const timestamp = Date.parse(tagForAdd.date);
+			if (Number.isNaN(timestamp) === false) {
+				return new Date(tagForAdd.date);
+			}
+			return undefined;
+		} catch {
+			return undefined;
+		}
 	}
 
 	return (
@@ -67,19 +91,27 @@ export default function Home() {
 						Quantidade
 						<input
 							id="quantity"
+							type="number"
 							className={styles.input}
 							data-testid="inputQuantity"
 							placeholder="Quantidade"
 							value={tagForAdd.quantity}
-							onChange={e =>
-								setTagForAdd({ ...tagForAdd, quantity: Number(e.target.value) })
-							}
+							onChange={handleInput}
 						/>
 					</label>
 
 					<label className=" text-white text-sm font-bold" htmlFor="date">
 						Data
-						<Datepicker />
+						<Datepicker
+							placeholder="Data"
+							startDate={verifyDate()}
+							setStartDate={(e: Date | undefined) => {
+								if (e) {
+									return setTagForAdd({ ...tagForAdd, date: e.toISOString() });
+								}
+								return setTagForAdd({ ...tagForAdd, date: '' });
+							}}
+						/>
 					</label>
 					<div className="flex items-end justify-center ">
 						<Button isLoading={isLoading} disabled={isLoading} type="submit">

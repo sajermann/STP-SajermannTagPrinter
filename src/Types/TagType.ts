@@ -1,7 +1,7 @@
 type TagType = {
 	id: string;
 	product: string;
-	quantity: number;
+	quantity: string;
 	date: string;
 };
 

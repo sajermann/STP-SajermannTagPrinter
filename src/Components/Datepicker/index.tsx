@@ -9,9 +9,8 @@ type PropsHours = {
 	startDate: Date | undefined;
 	setStartDate: (date: Date | undefined) => void;
 };
-function ExampleCustomTimeInput({ startDate, setStartDate }: PropsHours) {
+function CustomTimeInput({ startDate, setStartDate }: PropsHours) {
 	function handleChangeHourInternal(hour: Date | null) {
-		console.log(hour);
 		if (!hour) {
 			return;
 		}
@@ -37,17 +36,39 @@ function ExampleCustomTimeInput({ startDate, setStartDate }: PropsHours) {
 	);
 }
 
-export default function Datepicker() {
-	const [startDate, setStartDate] = useState<Date | undefined>(new Date());
+type Props = {
+	startDate: Date | undefined;
+	setStartDate: (value: Date | undefined) => void;
+	placeholder?: string;
+};
+
+export default function Datepicker({
+	startDate,
+	setStartDate,
+	placeholder,
+}: Props) {
+	// const [startDate, setStartDate] = useState<Date | undefined>(() => {
+	// 	try {
+	// 		if (value) {
+	// 			return new Date(value as string);
+	// 		}
+	// 		return undefined;
+	// 	} catch {
+	// 		return undefined;
+	// 	}
+	// });
 
 	function handleChange(date: Date | null) {
 		if (date) {
 			setStartDate(date);
+		} else {
+			setStartDate(undefined);
 		}
 	}
 
 	return (
 		<DatePicker
+			placeholderText={placeholder}
 			selected={startDate}
 			onChange={handleChange}
 			locale="pt-BR"
@@ -58,10 +79,7 @@ export default function Datepicker() {
 			value={masks.formatDateAndHour(startDate as Date)}
 			withPortal
 			customTimeInput={
-				<ExampleCustomTimeInput
-					startDate={startDate}
-					setStartDate={setStartDate}
-				/>
+				<CustomTimeInput startDate={startDate} setStartDate={setStartDate} />
 			}
 		/>
 	);
