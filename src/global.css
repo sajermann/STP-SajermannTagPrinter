@@ -7,3 +7,12 @@ body{
 	@apply bg-white  text-zinc-100 dark:bg-[#09090a]
 }
 
+@media print {
+  div {
+    break-inside: avoid;
+  }
+}
+
+.overflow-hidden{
+	overflow: hidden;
+}

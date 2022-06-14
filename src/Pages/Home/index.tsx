@@ -68,7 +68,6 @@ export default function Home() {
 						<input
 							id="quantity"
 							className={styles.input}
-							type="number"
 							data-testid="inputQuantity"
 							placeholder="Quantidade"
 							value={tagForAdd.quantity}
