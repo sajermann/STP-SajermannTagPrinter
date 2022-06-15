@@ -10,6 +10,7 @@ body{
 @media print {
   div {
     break-inside: avoid;
+		break-after: auto;
   }
 }
 

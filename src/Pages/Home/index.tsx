@@ -1,45 +1,48 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Button from '../../Components/Button';
 import TagType from '../../Types/TagType';
 import styles from './styles.module.css';
 import tagsFixture from '../../Data/tags.json';
 import Datepicker from '../../Components/Datepicker';
+import { formatDateAndHour } from '../../Utils/Masks/DateAndHour';
+import { generateGuid } from '../../Utils/Random';
+import postTagPrinter from '../../Services/TagPrinter';
 
 export default function Home() {
 	const [tagForAdd, setTagForAdd] = useState<TagType>({
-		id: '',
-		date: '2018-12-10T13:49:51.141Z',
+		id: generateGuid(),
+		date: '',
 		product: '',
 		quantity: '',
+		username: 'Sajermann',
 	});
 
-	const [tagsAddeds, setTagsAddeds] = useState<TagType[]>([...tagsFixture]);
+	const [tagsAddeds, setTagsAddeds] = useState<TagType[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => console.log(tagForAdd), [tagForAdd]);
 
-	async function load() {
-		// setIsLoading(true);
-		// const tagsTemp = [...tagsAddeds];
-		// const datesTemp = tagForAdd.date.split('/');
-		// tagsTemp.push({
-		// 	...tagForAdd,
-		// 	date: new Date(
-		// 		`${datesTemp[2]}-${datesTemp[1]}-${datesTemp[0]}`
-		// 	).toISOString(),
-		// 	id: Math.random().toString(),
-		// });
-		// setTagsAddeds(tagsTemp);
-		// setIsLoading(false);
-	}
-
-	function handleSubmit(event: FormEvent) {
-		setTagForAdd({ ...tagForAdd, date: '' });
-		console.log('Submit');
+	async function handleSubmit(event: FormEvent) {
 		event.preventDefault();
-		load();
+		setIsLoading(true);
+		const result = await postTagPrinter(tagForAdd);
+		if (!result) {
+			toast.error('Falha ao salvar registro!');
+			setIsLoading(false);
+			return;
+		}
+		setTagsAddeds([...tagsAddeds, tagForAdd]);
+		setTagForAdd({
+			id: generateGuid(),
+			date: '',
+			product: '',
+			quantity: '',
+			username: 'Sajermann',
+		});
+		setIsLoading(false);
 	}
 
 	function handleInput(e: ChangeEvent<HTMLInputElement>) {
@@ -127,10 +130,9 @@ export default function Home() {
 							className="b-2 border-gray-500 border-solid border-2 p-2 m-2 flex flex-col w-[220px] batata2"
 							key={tag.id}
 						>
-							<span>{tag.id}</span>
 							<span>{tag.product}</span>
 							<span>{tag.quantity}</span>
-							<span>{tag.date}</span>
+							<span>{formatDateAndHour(new Date(tag.date))}</span>
 						</div>
 					))}
 				</div>

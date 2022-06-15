@@ -16,6 +16,7 @@
     "react": "^18.0.0",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.0.0",
+    "react-toastify": "^9.0.4",
     "tw-elements": "^1.0.0-alpha12"
   },
   "devDependencies": {
