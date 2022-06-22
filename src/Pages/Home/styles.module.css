@@ -13,3 +13,24 @@ h1 {
 .input{
 	@apply bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full grid grid-cols-12 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500
 }
+
+.selected{
+	@apply bg-green-700
+}
+
+.card{
+	@apply  border-gray-500 border-solid border-2 p-2 m-2 relative w-[220px];
+}
+.buttonDelete{
+	@apply absolute right-0;
+	visibility: hidden;
+}
+
+.buttonDnd{
+	@apply absolute left-0;
+	visibility: hidden;
+}
+
+.card:hover .buttonDelete, .card:hover .buttonDnd{
+	visibility: visible;
+}

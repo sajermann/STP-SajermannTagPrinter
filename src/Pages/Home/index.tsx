@@ -2,23 +2,26 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Trash } from 'phosphor-react';
 import Button from '../../Components/Button';
 import TagType from '../../Types/TagType';
 import styles from './styles.module.css';
-import tagsFixture from '../../Data/tags.json';
 import Datepicker from '../../Components/Datepicker';
 import { formatDateAndHour } from '../../Utils/Masks/DateAndHour';
 import { generateGuid } from '../../Utils/Random';
 import postTagPrinter from '../../Services/TagPrinter';
 
+const defaultValue = {
+	id: generateGuid(),
+	date: '2022-10-10',
+	product: 'Test',
+	quantity: '60',
+	username: 'Sajermann',
+	isSelected: false,
+};
+
 export default function Home() {
-	const [tagForAdd, setTagForAdd] = useState<TagType>({
-		id: generateGuid(),
-		date: '',
-		product: '',
-		quantity: '',
-		username: 'Sajermann',
-	});
+	const [tagForAdd, setTagForAdd] = useState<TagType>({ ...defaultValue });
 
 	const [tagsAddeds, setTagsAddeds] = useState<TagType[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -35,21 +38,13 @@ export default function Home() {
 			return;
 		}
 		setTagsAddeds([...tagsAddeds, tagForAdd]);
-		setTagForAdd({
-			id: generateGuid(),
-			date: '',
-			product: '',
-			quantity: '',
-			username: 'Sajermann',
-		});
+		setTagForAdd({ ...defaultValue, id: generateGuid() });
 		setIsLoading(false);
 	}
 
 	function handleInput(e: ChangeEvent<HTMLInputElement>) {
 		const { value } = e.target;
 		const valueTrated = value.replace(',', '.');
-		console.log(valueTrated);
-		console.log(Number.isNaN(Number(valueTrated)));
 		if (Number.isNaN(Number(valueTrated))) {
 			return;
 		}
@@ -66,6 +61,11 @@ export default function Home() {
 		} catch {
 			return undefined;
 		}
+	}
+
+	function handleDelete(id: string) {
+		const tasgTemp = tagsAddeds.filter(tag => tag.id !== id);
+		setTagsAddeds(tasgTemp);
 	}
 
 	return (
@@ -126,13 +126,21 @@ export default function Home() {
 			<div>
 				<div className="flex flex-wrap">
 					{tagsAddeds.map(tag => (
-						<div
-							className="b-2 border-gray-500 border-solid border-2 p-2 m-2 flex flex-col w-[220px] batata2"
-							key={tag.id}
-						>
-							<span>{tag.product}</span>
-							<span>{tag.quantity}</span>
-							<span>{formatDateAndHour(new Date(tag.date))}</span>
+						<div className={`${styles.card}`} key={tag.id}>
+							<button className={`${styles.buttonDnd}`}>
+								<Trash size={24} />
+							</button>
+							<button
+								className={`${styles.buttonDelete}`}
+								onClick={() => handleDelete(tag.id)}
+							>
+								<Trash size={24} />
+							</button>
+							<div className=" border-gray-500 border-solid border-2  flex flex-col">
+								<span>{tag.product}</span>
+								<span>{tag.quantity}</span>
+								<span>{formatDateAndHour(new Date(tag.date))}</span>
+							</div>
 						</div>
 					))}
 				</div>

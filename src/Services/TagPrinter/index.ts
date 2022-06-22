@@ -10,7 +10,7 @@ export default async function postTagPrinter(tag: TagType): Promise<boolean> {
 		} else {
 			sessionStorage.setItem('@TagPrinter:All', JSON.stringify([tag]));
 		}
-		return false;
+		return true;
 	} catch {
 		return false;
 	}

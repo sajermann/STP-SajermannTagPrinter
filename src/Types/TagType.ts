@@ -4,6 +4,7 @@ type TagType = {
 	quantity: string;
 	date: string;
 	username: string;
+	isSelected: boolean;
 };
 
 export default TagType;
