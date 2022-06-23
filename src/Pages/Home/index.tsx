@@ -1,8 +1,15 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import {
+	ChangeEvent,
+	FormEvent,
+	useCallback,
+	useEffect,
+	useState,
+} from 'react';
 import { toast } from 'react-toastify';
 import { Trash } from 'phosphor-react';
+import update from 'immutability-helper';
 import Button from '../../Components/Button';
 import TagType from '../../Types/TagType';
 import styles from './styles.module.css';
@@ -10,6 +17,7 @@ import Datepicker from '../../Components/Datepicker';
 import { formatDateAndHour } from '../../Utils/Masks/DateAndHour';
 import { generateGuid } from '../../Utils/Random';
 import postTagPrinter from '../../Services/TagPrinter';
+import Card from '../../Components/Card';
 
 const defaultValue = {
 	id: generateGuid(),
@@ -26,7 +34,40 @@ export default function Home() {
 	const [tagsAddeds, setTagsAddeds] = useState<TagType[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
+	function handleDelete(id: string) {
+		const tasgTemp = tagsAddeds.filter(tag => tag.id !== id);
+		setTagsAddeds(tasgTemp);
+	}
+
+	const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+		setTagsAddeds((prevCards: TagType[]) =>
+			update(prevCards, {
+				$splice: [
+					[dragIndex, 1],
+					[hoverIndex, 0, prevCards[dragIndex] as TagType],
+				],
+			})
+		);
+	}, []);
+
+	const renderCard = useCallback(
+		(card: TagType, index: number) => (
+			<Card
+				key={card.id}
+				index={index}
+				id={card.id}
+				text={card.product}
+				moveCard={moveCard}
+				quantity={card.quantity}
+				date={card.date}
+				handleDelete={handleDelete}
+			/>
+		),
+		[]
+	);
+
 	useEffect(() => console.log(tagForAdd), [tagForAdd]);
+	useEffect(() => console.log({ tagsAddeds }), [tagsAddeds]);
 
 	async function handleSubmit(event: FormEvent) {
 		event.preventDefault();
@@ -61,11 +102,6 @@ export default function Home() {
 		} catch {
 			return undefined;
 		}
-	}
-
-	function handleDelete(id: string) {
-		const tasgTemp = tagsAddeds.filter(tag => tag.id !== id);
-		setTagsAddeds(tasgTemp);
 	}
 
 	return (
@@ -125,11 +161,11 @@ export default function Home() {
 			</div>
 			<div>
 				<div className="flex flex-wrap">
+					{tagsAddeds.map((card, i) => renderCard(card, i))}
+				</div>
+				{/* <div className="flex flex-wrap">
 					{tagsAddeds.map(tag => (
 						<div className={`${styles.card}`} key={tag.id}>
-							<button className={`${styles.buttonDnd}`}>
-								<Trash size={24} />
-							</button>
 							<button
 								className={`${styles.buttonDelete}`}
 								onClick={() => handleDelete(tag.id)}
@@ -143,7 +179,7 @@ export default function Home() {
 							</div>
 						</div>
 					))}
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

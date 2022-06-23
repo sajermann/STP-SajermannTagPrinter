@@ -20,6 +20,7 @@ h1 {
 
 .card{
 	@apply  border-gray-500 border-solid border-2 p-2 m-2 relative w-[220px];
+	@apply hover:cursor-move
 }
 .buttonDelete{
 	@apply absolute right-0;
