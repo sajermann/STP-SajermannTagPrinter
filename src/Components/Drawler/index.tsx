@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import { XCircle } from 'phosphor-react';
 import { useEffect, useState } from 'react';
+import Button from '../Button';
+import Header from '../Header';
 
 type Props = {
 	children: React.ReactNode;
@@ -45,13 +48,41 @@ export default function Drawler({ children, side, isOpen, setIsOpen }: Props) {
 			}`}
 		>
 			<section
-				className={` w-screen max-w-${side === 'full' ? 'full' : 'lg'} ${
+				className={`bg-gray-900 w-screen max-w-${
+					side === 'full' ? 'full' : 'lg'
+				} ${
 					configSide.side
-				} absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ${
+				} absolute h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ${
 					isOpen ? ' translate-x-0 ' : `${configSide.translate}`
 				}`}
 			>
-				<article className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 h-full">
+				<article
+					className={`relative w-screen ${
+						side === 'full' ? 'w-full' : 'max-w-lg'
+					} pb-10 flex flex-col space-y-6 h-full`}
+				>
+					<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+						<div className="container flex flex-wrap justify-between items-center mx-auto">
+							<Button
+								// disabled={isLoading}
+								type="submit"
+							>
+								<XCircle size={22} />
+							</Button>
+
+							<a href="/" className="flex items-center">
+								<img
+									src="https://rodasdadiversao.files.wordpress.com/2018/07/fortnite-logo-ps4.png?w=512"
+									className="mr-3 h-6 sm:h-9"
+									alt="Fortnite Logo"
+								/>
+								<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+									STP-SajermannTagPrinter
+								</span>
+							</a>
+							<div className="flex items-center md:order-2">s</div>
+						</div>
+					</nav>
 					{children}
 				</article>
 			</section>

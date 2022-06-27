@@ -8,6 +8,7 @@ import Datepicker from '../../Components/Datepicker';
 import { generateGuid } from '../../Utils/Random';
 import postTagPrinter from '../../Services/TagPrinter';
 import Card from '../../Components/Card';
+import DrawlerListTags from '../../Components/DrawlerListTags';
 
 const defaultValue = {
 	id: generateGuid(),
@@ -134,10 +135,11 @@ export default function Home() {
 							}}
 						/>
 					</label>
-					<div className="flex items-end justify-center ">
+					<div className="flex items-end justify-evenly ">
 						<Button isLoading={isLoading} disabled={isLoading} type="submit">
 							Adicionar
 						</Button>
+						<DrawlerListTags />
 					</div>
 				</form>
 			</div>

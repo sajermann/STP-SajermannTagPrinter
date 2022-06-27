@@ -113,7 +113,7 @@ export default function Card({
 			>
 				<Trash size={24} />
 			</button>
-			<div className=" border-gray-500 border-solid border-2  flex flex-col">
+			<div className=" border-gray-500 flex flex-col">
 				<span>{item.product}</span>
 				<span>{item.quantity}</span>
 				<span>{formatDateAndHour(new Date(item.date))}</span>
