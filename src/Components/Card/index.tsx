@@ -5,15 +5,13 @@ import type { Identifier, XYCoord } from 'dnd-core';
 import { Trash } from 'phosphor-react';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import TagType from '../../Types/TagType';
 import { formatDateAndHour } from '../../Utils/Masks/DateAndHour';
 import styles from './styles.module.css';
 
 export interface CardProps {
-	id: string;
-	text: string;
+	item: TagType;
 	index: number;
-	quantity: string;
-	date: string;
 	moveCard: (dragIndex: number, hoverIndex: number) => void;
 	handleDelete: (data: string) => void;
 }
@@ -25,12 +23,9 @@ interface DragItem {
 }
 
 export default function Card({
-	id,
-	text,
+	item,
 	index,
 	moveCard,
-	quantity,
-	date,
 	handleDelete,
 }: CardProps) {
 	const ref = useRef<HTMLDivElement>(null);
@@ -45,11 +40,11 @@ export default function Card({
 				handlerId: monitor.getHandlerId(),
 			};
 		},
-		hover(item: DragItem, monitor) {
+		hover(itemNow: DragItem, monitor) {
 			if (!ref.current) {
 				return;
 			}
-			const dragIndex = item.index;
+			const dragIndex = itemNow.index;
 			const hoverIndex = index;
 
 			// Don't replace items with themselves
@@ -91,13 +86,13 @@ export default function Card({
 			// Generally it's better to avoid mutations,
 			// but it's good here for the sake of performance
 			// to avoid expensive index searches.
-			item.index = hoverIndex;
+			itemNow.index = hoverIndex;
 		},
 	});
 
 	const [{ isDragging }, drag] = useDrag({
 		type: 'card',
-		item: () => ({ id, index }),
+		item: () => ({ id: item.id, index }),
 		collect: (monitor: any) => ({
 			isDragging: monitor.isDragging(),
 		}),
@@ -114,14 +109,14 @@ export default function Card({
 		>
 			<button
 				className={`${styles.buttonDelete}`}
-				onClick={() => handleDelete(id)}
+				onClick={() => handleDelete(item.id)}
 			>
 				<Trash size={24} />
 			</button>
 			<div className=" border-gray-500 border-solid border-2  flex flex-col">
-				<span>{text}</span>
-				<span>{quantity}</span>
-				<span>{formatDateAndHour(new Date(date))}</span>
+				<span>{item.product}</span>
+				<span>{item.quantity}</span>
+				<span>{formatDateAndHour(new Date(item.date))}</span>
 			</div>
 		</div>
 	);

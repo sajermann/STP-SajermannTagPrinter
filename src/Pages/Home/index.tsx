@@ -1,20 +1,10 @@
-/* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import {
-	ChangeEvent,
-	FormEvent,
-	useCallback,
-	useEffect,
-	useState,
-} from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Trash } from 'phosphor-react';
-import update from 'immutability-helper';
 import Button from '../../Components/Button';
 import TagType from '../../Types/TagType';
 import styles from './styles.module.css';
 import Datepicker from '../../Components/Datepicker';
-import { formatDateAndHour } from '../../Utils/Masks/DateAndHour';
 import { generateGuid } from '../../Utils/Random';
 import postTagPrinter from '../../Services/TagPrinter';
 import Card from '../../Components/Card';
@@ -39,35 +29,27 @@ export default function Home() {
 		setTagsAddeds(tasgTemp);
 	}
 
-	const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-		setTagsAddeds((prevCards: TagType[]) =>
-			update(prevCards, {
-				$splice: [
-					[dragIndex, 1],
-					[hoverIndex, 0, prevCards[dragIndex] as TagType],
-				],
-			})
-		);
-	}, []);
+	function moveCard(dragIndex: number, hoverIndex: number) {
+		const tagsTemp = [...tagsAddeds];
+		const tagDrag = tagsTemp[dragIndex];
+		const tagForMoviment = tagsTemp[hoverIndex];
+		tagsTemp[dragIndex] = { ...tagForMoviment };
+		tagsTemp[hoverIndex] = { ...tagDrag };
+		setTagsAddeds(tagsTemp);
+	}
 
 	const renderCard = useCallback(
-		(card: TagType, index: number) => (
+		(item: TagType, index: number) => (
 			<Card
-				key={card.id}
+				key={item.id}
 				index={index}
-				id={card.id}
-				text={card.product}
 				moveCard={moveCard}
-				quantity={card.quantity}
-				date={card.date}
+				item={item}
 				handleDelete={handleDelete}
 			/>
 		),
-		[]
+		[tagsAddeds]
 	);
-
-	useEffect(() => console.log(tagForAdd), [tagForAdd]);
-	useEffect(() => console.log({ tagsAddeds }), [tagsAddeds]);
 
 	async function handleSubmit(event: FormEvent) {
 		event.preventDefault();
@@ -163,23 +145,6 @@ export default function Home() {
 				<div className="flex flex-wrap">
 					{tagsAddeds.map((card, i) => renderCard(card, i))}
 				</div>
-				{/* <div className="flex flex-wrap">
-					{tagsAddeds.map(tag => (
-						<div className={`${styles.card}`} key={tag.id}>
-							<button
-								className={`${styles.buttonDelete}`}
-								onClick={() => handleDelete(tag.id)}
-							>
-								<Trash size={24} />
-							</button>
-							<div className=" border-gray-500 border-solid border-2  flex flex-col">
-								<span>{tag.product}</span>
-								<span>{tag.quantity}</span>
-								<span>{formatDateAndHour(new Date(tag.date))}</span>
-							</div>
-						</div>
-					))}
-				</div> */}
 			</div>
 		</div>
 	);
