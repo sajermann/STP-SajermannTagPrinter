@@ -1,5 +1,4 @@
 /* eslint-disable react/button-has-type */
-import { useEffect, useState } from 'react';
 import Loading from '../Loading';
 import styles from './styles.module.css';
 
@@ -22,33 +21,42 @@ export default function Button({
 	variant,
 	...props
 }: Props) {
-	const [variantBg, setVariantBg] = useState('blue');
+	const VARIANT = {
+		Primary: {
+			normal: 'bg-blue-500',
+			hover: 'hover:bg-blue-700',
+		},
+		Secondary: {
+			normal: 'bg-pink-500',
+			hover: 'hover:bg-pink-700',
+		},
+		Success: {
+			normal: 'bg-green-500',
+			hover: 'hover:bg-green-700',
+		},
+		Error: {
+			normal: 'bg-red-500',
+			hover: 'hover:bg-red-700',
+		},
+		Warning: {
+			normal: 'bg-yellow-500',
+			hover: 'hover:bg-yellow-700',
+		},
+		Transparent: {
+			normal: 'bg-transparent-500',
+			hover: 'hover:bg-gray-800',
+		},
+	};
 
-	useEffect(() => {
-		if (variant === 'Primary') {
-			setVariantBg('blue');
-		}
-		if (variant === 'Secondary') {
-			setVariantBg('pink');
-		}
-		if (variant === 'Success') {
-			setVariantBg('green');
-		}
-		if (variant === 'Error') {
-			setVariantBg('red');
-		}
-		if (variant === 'Warning') {
-			setVariantBg('yellow');
-		}
-		if (variant === 'Transparent') {
-			setVariantBg('transparent');
-		}
-	}, [variant]);
 	return (
 		<button
 			type={type}
 			{...props}
-			className={`bg-${variantBg}-500 hover:bg-${variantBg}-700 text-white font-bold py-2 px-4 rounded flex`}
+			className={`${VARIANT[variant || 'Primary'].normal} ${
+				VARIANT[variant || 'Primary'].hover
+			} text-black dark:text-white font-bold py-2 px-4 rounded flex items-center justify-center min-w-[120px] ${
+				props.className
+			}`}
 		>
 			{isLoading && <Loading />}
 			{children}

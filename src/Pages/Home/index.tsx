@@ -136,7 +136,12 @@ export default function Home() {
 						/>
 					</label>
 					<div className="flex items-end justify-evenly ">
-						<Button isLoading={isLoading} disabled={isLoading} type="submit">
+						<Button
+							isLoading={isLoading}
+							disabled={isLoading}
+							type="submit"
+							variant="Success"
+						>
 							Adicionar
 						</Button>
 						<DrawlerListTags />
