@@ -4,13 +4,21 @@ import { useEffect, useState } from 'react';
 import CloseButton from '../CloseButton';
 import SaveButton from '../SaveButton';
 
+interface ISide {
+	side: 'left' | 'right';
+	onSave?: () => never;
+}
+
+interface ISideFull {
+	side: 'full';
+	onSave: () => void;
+}
+
 type Props = {
 	children: React.ReactNode;
-	side: 'left' | 'right' | 'full';
 	isOpen: boolean;
-	isLoading: boolean;
+	isLoading?: boolean;
 	setIsOpen: (isOpen: boolean) => void;
-	onSave: () => void;
 	title?: string;
 	inSuccess?: {
 		success: boolean;
@@ -23,6 +31,8 @@ type Props = {
 	};
 };
 
+type Batata = Props & (ISide | ISideFull);
+
 export default function Drawler({
 	children,
 	side,
@@ -33,7 +43,7 @@ export default function Drawler({
 	onSave,
 	inSuccess,
 	inFailed,
-}: Props) {
+}: Batata) {
 	const [configSide, setConfigSide] = useState({ side: '', translate: '' });
 
 	useEffect(() => {
@@ -69,7 +79,7 @@ export default function Drawler({
 			}`}
 		>
 			<section
-				className={`bg-gray-900 w-screen max-w-${
+				className={`bg-slate-300 text-black dark:bg-gray-900 dark:text-white w-screen max-w-${
 					side === 'full' ? 'full' : 'lg'
 				} ${
 					configSide.side
@@ -83,11 +93,15 @@ export default function Drawler({
 					} pb-10 flex flex-col space-y-6 h-full`}
 				>
 					{side === 'full' && (
-						<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+						<nav className="border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-800">
 							<div className="container flex flex-wrap justify-between items-center mx-auto">
-								<CloseButton type="button" onClick={() => setIsOpen(false)} />
+								<CloseButton
+									disabled={isLoading}
+									type="button"
+									onClick={() => setIsOpen(false)}
+								/>
 
-								<h2>{title}</h2>
+								<h2 className="text-white">{title}</h2>
 
 								<SaveButton
 									onSave={onSave}

@@ -23,12 +23,23 @@ h1 {
 	@apply hover:cursor-move
 }
 .buttonDelete{
-	@apply absolute right-0;
+	@apply absolute right-0 text-black;
 	visibility: hidden;
 }
 
+:global(.dark) .buttonDelete{
+	@apply text-white
+}
 
 
 .card:hover .buttonDelete{
 	visibility: visible;
+}
+
+.subContainer{
+	@apply border-gray-500 flex flex-col text-black
+}
+
+:global(.dark) .subContainer{
+	@apply text-white
 }

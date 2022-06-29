@@ -54,9 +54,7 @@ export default function Button({
 			{...props}
 			className={`${VARIANT[variant || 'Primary'].normal} ${
 				VARIANT[variant || 'Primary'].hover
-			} text-black dark:text-white font-bold py-2 px-4 rounded flex items-center justify-center min-w-[120px] ${
-				props.className
-			}`}
+			}  ${styles.btn} ${props.className}`}
 		>
 			{isLoading && <Loading />}
 			{children}

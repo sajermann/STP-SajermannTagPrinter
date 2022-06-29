@@ -94,7 +94,10 @@ export default function Home() {
 					className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 mt-1"
 					onSubmit={handleSubmit}
 				>
-					<label className=" text-white text-sm font-bold" htmlFor="product">
+					<label
+						className="text-black text-sm font-bold dark:text-white"
+						htmlFor="product"
+					>
 						Produto
 						<input
 							id="product"
@@ -109,7 +112,10 @@ export default function Home() {
 						/>
 					</label>
 
-					<label className=" text-white text-sm font-bold" htmlFor="quantity">
+					<label
+						className="text-black text-sm font-bold dark:text-white"
+						htmlFor="quantity"
+					>
 						Quantidade
 						<input
 							id="quantity"
@@ -122,7 +128,10 @@ export default function Home() {
 						/>
 					</label>
 
-					<label className=" text-white text-sm font-bold" htmlFor="date">
+					<label
+						className="text-black text-sm font-bold dark:text-white"
+						htmlFor="date"
+					>
 						Data
 						<Datepicker
 							placeholder="Data"

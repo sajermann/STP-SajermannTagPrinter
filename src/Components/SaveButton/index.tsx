@@ -69,18 +69,15 @@ export default function SaveButton({
 	}
 
 	return (
-		<div className="relative w-14 h-14 flex items-center justify-center">
+		<div className={styles.container}>
 			{isLoading && (
-				<div className="flex justify-center items-center absolute">
-					<div
-						className="spinner-border animate-spin inline-block w-14 h-14 border-4 rounded-full text-green-500"
-						role="status"
-					/>
+				<div className={styles.containerSpiner}>
+					<div className={styles.spiner} role="status" />
 				</div>
 			)}
 			<button
 				type={type}
-				className={`${styles.bnt} ${styles.button} ${props.className} ${
+				className={`${styles.button} ${props.className} ${
 					successInternal && styles.success
 				} ${failedInternal && styles.failed}`}
 				onClick={handleClick}
