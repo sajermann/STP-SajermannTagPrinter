@@ -2,10 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+.bnt {
+	@apply rounded-full flex items-center justify-center w-12 h-12 disabled:opacity-10 disabled:cursor-not-allowed transition-colors
+}
+
 .button {
-	@apply text-black  font-bold rounded-full flex items-center justify-center w-11 h-11 bg-green-500 hover:bg-green-700 disabled:opacity-10 disabled:cursor-not-allowed;
+	@apply text-black bg-blue-500 hover:bg-blue-700;
 }
 
 :global(.dark) .button{
-	@apply text-white
+	@apply text-white bg-blue-500 hover:bg-blue-700;
+}
+
+.success {
+	@apply text-black bg-green-500 hover:bg-green-700;
+}
+
+:global(.dark) .success{
+	@apply text-white bg-green-500 hover:bg-green-700;
+}
+
+.failed {
+	@apply text-black bg-red-500 hover:bg-red-700;
+}
+
+:global(.dark) .failed{
+	@apply text-white bg-red-500 hover:bg-red-700;
 }

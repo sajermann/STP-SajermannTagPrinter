@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import { XCircle } from 'phosphor-react';
+import { X } from 'phosphor-react';
 import Loading from '../Loading';
 import styles from './styles.module.css';
 
@@ -21,7 +21,7 @@ export default function CloseButton({
 			className={`${styles.button} ${props.className}`}
 		>
 			{isLoading && <Loading />}
-			<XCircle size={30} />
+			<X size={30} />
 		</button>
 	);
 }
