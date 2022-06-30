@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 import Loading from '../Loading';
 import styles from './styles.module.css';
+import './button.css';
 
 interface Props extends React.HTMLProps<HTMLButtonElement> {
 	type: 'button' | 'reset' | 'submit';
@@ -48,13 +49,46 @@ export default function Button({
 		},
 	};
 
+	function createRipple(event: React.MouseEvent<HTMLButtonElement>) {
+		const button = event.currentTarget;
+		const circle = document.createElement('span');
+		const diameter = Math.max(button.clientWidth, button.clientHeight);
+		const radius = diameter / 2;
+
+		// eslint-disable-next-line no-multi-assign
+		circle.style.width = circle.style.height = `${diameter}px`;
+		circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+		circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+		circle.classList.add('ripple');
+
+		const ripple = button.getElementsByClassName('ripple')[0];
+		console.log({ button, circle, diameter, radius, ripple });
+
+		if (ripple) {
+			ripple.remove();
+		}
+
+		button.appendChild(circle);
+	}
+
 	return (
+		// <button
+		// 	type={type}
+		// 	{...props}
+		// 	className={`${VARIANT[variant || 'Primary'].normal} ${
+		// 		VARIANT[variant || 'Primary'].hover
+		// 	}  ${styles.btn} ${props.className}`}
+		// >
+		// 	{isLoading && <Loading />}
+		// 	{children}
+		// </button>
 		<button
+			onClick={createRipple}
 			type={type}
 			{...props}
 			className={`${VARIANT[variant || 'Primary'].normal} ${
 				VARIANT[variant || 'Primary'].hover
-			}  ${styles.btn} ${props.className}`}
+			}  ${styles.btn} ${props.className} button`}
 		>
 			{isLoading && <Loading />}
 			{children}
