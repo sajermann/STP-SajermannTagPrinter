@@ -6,7 +6,7 @@ import TagType from '../../Types/TagType';
 import styles from './styles.module.css';
 import Datepicker from '../../Components/Datepicker';
 import { generateGuid } from '../../Utils/Random';
-import postTagPrinter from '../../Services/TagPrinter';
+import tagPrinterServices from '../../Services/TagPrinter';
 import Card from '../../Components/Card';
 import DrawlerListTags from '../../Components/DrawlerListTags';
 
@@ -55,7 +55,7 @@ export default function Home() {
 	async function handleSubmit(event: FormEvent) {
 		event.preventDefault();
 		setIsLoading(true);
-		const result = await postTagPrinter(tagForAdd);
+		const result = await tagPrinterServices.postTagPrinter(tagForAdd);
 		if (!result) {
 			toast.error('Falha ao salvar registro!');
 			setIsLoading(false);

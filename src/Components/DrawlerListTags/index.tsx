@@ -1,17 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataGrid from 'react-data-grid';
 import delay from '../../Utils/Delay';
 import Button from '../Button';
 import Drawler from '../Drawler';
+import tagPrinterServices from '../../Services/TagPrinter';
+import TagType from '../../Types/TagType';
 
 const columns = [
-	{ key: 'id', name: 'ID' },
-	{ key: 'title', name: 'Title' },
-];
-
-const rows = [
-	{ id: 0, title: 'Example' },
-	{ id: 1, title: 'Demo' },
+	{ key: 'product', name: 'Produto', editable: true, sortable: true },
+	{ key: 'quantity', name: 'Quantidade' },
+	{ key: 'date', name: 'Data' },
+	{
+		key: 'username',
+		name: 'Usuário',
+		editable: true,
+		sortable: true,
+	},
 ];
 
 export default function DrawlerListTags() {
@@ -19,6 +23,7 @@ export default function DrawlerListTags() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [failed, setFailed] = useState(false);
+	const [data, setData] = useState<TagType[]>([]);
 
 	async function handleSave() {
 		setIsLoading(true);
@@ -27,6 +32,18 @@ export default function DrawlerListTags() {
 		setIsLoading(false);
 		setSuccess(true);
 	}
+
+	async function load() {
+		setIsLoading(true);
+		const result = await tagPrinterServices.getAllTagPrinter();
+		setData(result);
+		setIsLoading(false);
+	}
+
+	useEffect(() => {
+		load();
+	}, [isOpen]);
+
 	return (
 		<>
 			<Button type="button" variant="Primary" onClick={() => setIsOpen(true)}>
@@ -49,7 +66,12 @@ export default function DrawlerListTags() {
 					setFailed,
 				}}
 			>
-				<DataGrid className="bg-blue-500" columns={columns} rows={rows} />
+				<DataGrid
+					className=" h-full"
+					columns={columns}
+					rows={data}
+					cellNavigationMode="CHANGE_ROW"
+				/>
 			</Drawler>
 		</>
 	);

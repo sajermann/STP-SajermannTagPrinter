@@ -1,6 +1,6 @@
 import TagType from '../../Types/TagType';
 
-export default async function postTagPrinter(tag: TagType): Promise<boolean> {
+async function postTagPrinter(tag: TagType): Promise<boolean> {
 	try {
 		const allTags = await sessionStorage.getItem('@TagPrinter:All');
 		if (allTags) {
@@ -15,3 +15,18 @@ export default async function postTagPrinter(tag: TagType): Promise<boolean> {
 		return false;
 	}
 }
+
+async function getAllTagPrinter(): Promise<TagType[]> {
+	try {
+		const allTags = await sessionStorage.getItem('@TagPrinter:All');
+		if (allTags) {
+			const tags: TagType[] = JSON.parse(allTags);
+			return tags;
+		}
+		return [];
+	} catch {
+		return [];
+	}
+}
+
+export default { postTagPrinter, getAllTagPrinter };
