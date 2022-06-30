@@ -1,7 +1,18 @@
 import { useState } from 'react';
+import DataGrid from 'react-data-grid';
 import delay from '../../Utils/Delay';
 import Button from '../Button';
 import Drawler from '../Drawler';
+
+const columns = [
+	{ key: 'id', name: 'ID' },
+	{ key: 'title', name: 'Title' },
+];
+
+const rows = [
+	{ id: 0, title: 'Example' },
+	{ id: 1, title: 'Demo' },
+];
 
 export default function DrawlerListTags() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +49,7 @@ export default function DrawlerListTags() {
 					setFailed,
 				}}
 			>
-				<div>Aqui vai ficar o Listagem</div>
+				<DataGrid className="bg-blue-500" columns={columns} rows={rows} />
 			</Drawler>
 		</>
 	);
