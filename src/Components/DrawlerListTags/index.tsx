@@ -1,29 +1,23 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect, useState } from 'react';
-import DataGrid from 'react-data-grid';
 import delay from '../../Utils/Delay';
 import Button from '../Button';
 import Drawler from '../Drawler';
 import tagPrinterServices from '../../Services/TagPrinter';
 import TagType from '../../Types/TagType';
-
-const columns = [
-	{ key: 'product', name: 'Produto', editable: true, sortable: true },
-	{ key: 'quantity', name: 'Quantidade' },
-	{ key: 'date', name: 'Data' },
-	{
-		key: 'username',
-		name: 'Usuário',
-		editable: true,
-		sortable: true,
-	},
-];
+import CustomTable from '../CustomTable';
+import { FormatDateAndHour } from '../../Utils/StringVsDate';
 
 export default function DrawlerListTags() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [failed, setFailed] = useState(false);
+	const [openAdd, setOpenAdd] = useState(false);
 	const [data, setData] = useState<TagType[]>([]);
+	const [selectedRows, setSelectedRows] = useState<ReadonlySet<number>>(
+		() => new Set()
+	);
 
 	async function handleSave() {
 		setIsLoading(true);
@@ -43,6 +37,54 @@ export default function DrawlerListTags() {
 	useEffect(() => {
 		load();
 	}, [isOpen]);
+
+	useEffect(() => console.log(selectedRows), [selectedRows]);
+
+	const columns = [
+		{
+			field: 'id',
+			header: 'Ações',
+			render: (id: string) => (
+				<div>Batata</div>
+				// <MenuOptionsForTable
+				// 	handleDelete={handleOpenDelete}
+				// 	handleUpdate={handleOpenUpdate}
+				// 	id={id}
+				// />
+			),
+			options: {
+				width: 50,
+			},
+		},
+		{
+			field: 'product',
+			header: 'Produto',
+			render: null,
+			options: {
+				width: 150,
+			},
+		},
+		{
+			field: 'quantity',
+			header: 'Quantidade',
+			render: null,
+			options: {
+				width: 150,
+			},
+		},
+
+		{
+			field: 'date',
+			header: 'Cadastrado',
+			render: (createdAt: string) => (
+				<div>{FormatDateAndHour(new Date(createdAt))}</div>
+			),
+
+			options: {
+				width: 120,
+			},
+		},
+	];
 
 	return (
 		<>
@@ -66,11 +108,11 @@ export default function DrawlerListTags() {
 					setFailed,
 				}}
 			>
-				<DataGrid
-					className=" h-full"
+				<CustomTable
+					isLoading={isLoading}
+					data={data}
+					handleClickAdd={() => setOpenAdd(true)}
 					columns={columns}
-					rows={data}
-					cellNavigationMode="CHANGE_ROW"
 				/>
 			</Drawler>
 		</>
