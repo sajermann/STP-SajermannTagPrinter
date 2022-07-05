@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import styles from './styles.module.css';
 
 type Props = {
 	handleSearch: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -18,15 +19,19 @@ export default function CustomTableHeaderSearch({
 				// <Skeleton variant="rectangular" width="100%" height={56} />
 				<div>Skeleton</div>
 			) : (
-				// <TextField
-				// 	fullWidth
-				// 	id="outlined-search"
-				// 	label="Pesquisar"
-				// 	type="search"
-				// 	variant="outlined"
-				// 	onChange={handleSearch}
-				// />
-				<input id="outlined-search" onChange={handleSearch} />
+				<label
+					className="text-black text-sm font-bold dark:text-white"
+					htmlFor="search"
+				>
+					Pesquisar
+					<input
+						id="search"
+						type="search"
+						className={styles.input}
+						placeholder="Pesquisar"
+						onChange={handleSearch}
+					/>
+				</label>
 			)}
 		</div>
 	);

@@ -31,7 +31,6 @@ export default function CustomTableFooterPagination({
 			{isLoading ? (
 				<div>skeleton</div>
 			) : (
-				<div>Paginação</div>
 				// <Pagination
 				// 	className={classes.pagination}
 				// 	count={Math.ceil(dataLength / itemsPerPag)}
@@ -43,6 +42,14 @@ export default function CustomTableFooterPagination({
 				// 		handlePagination(page);
 				// 	}}
 				// />
+				<Pagination
+					className="pagination-bar"
+					currentPage={currentPage}
+					totalCount={data.length}
+					pageSize={PageSize}
+					siblingCount={3}
+					onPageChange={page => setCurrentPage(page)}
+				/>
 			)}
 		</div>
 	);

@@ -25,24 +25,28 @@ export default function CustomTableFooterItemsPerPage({
 			{isLoading ? (
 				<div>Skeleton</div>
 			) : (
-				<div>Select boladão das paginas</div>
-				// <FormControl sx={{ m: 1, minWidth: 200 }}>
-				// 	<InputLabel id="itensPerpage">Itens por página</InputLabel>
-				// 	<Select
-				// 		labelId="itensPerpage"
-				// 		id="selectItensPerPage"
-				// 		value={itemsPerPag.toString()}
-				// 		label="Itens por página"
-				// 		onChange={handleItemsPerPage}
-				// 	>
-				// 		<MenuItem value={5}>5</MenuItem>
-				// 		<MenuItem value={10}>10</MenuItem>
-				// 		<MenuItem value={15}>15</MenuItem>
-				// 		<MenuItem value={20}>20</MenuItem>
-				// 		<MenuItem value={30}>30</MenuItem>
-				// 		<MenuItem value={dataLength}>Todos</MenuItem>
-				// 	</Select>
-				// </FormControl>
+				<>
+					<div>Itens por página</div>
+					<select
+						className="form-select appearance-none block px-3 py-1.5 text-base font-normal
+						text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid
+						border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700
+						focus:bg-white focus:border-blue-600 focus:outline-none w-52"
+						aria-label="Disabled select example"
+						onChange={handleItemsPerPage}
+						id="selectItensPerPage"
+						value={itemsPerPag.toString()}
+					>
+						<option selected value={5}>
+							5
+						</option>
+						<option value={10}>10</option>
+						<option value={15}>15</option>
+						<option value={20}>20</option>
+						<option value={30}>30</option>
+						<option value={dataLength}>Todos</option>
+					</select>
+				</>
 			)}
 		</div>
 	);

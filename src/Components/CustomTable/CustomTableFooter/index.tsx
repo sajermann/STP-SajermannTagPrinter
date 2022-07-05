@@ -35,12 +35,7 @@ export default function CustomTableFooter({
 			<div
 			// container spacing={1}
 			>
-				<div
-					className="grid-cols-12"
-					// item xs={12} sm={12} md={12} lg={12} xl={12}
-				>
-					______
-				</div>
+				<div className="w-full border border-b-white my-4" />
 				<CustomTableFooterItemsPerPage
 					isLoading={isLoading}
 					dataLength={dataLength}

@@ -105,7 +105,7 @@ export default function CustomTableBody({
 									<th
 										data-testid="customTable-th"
 										key={generateNumbers(5)}
-										className="h-14 sticky top-0 px-1 border-2 z-[1] bg-gray-900 font-bold"
+										className="h-14 sticky top-0 px-1 border z-[1] bg-gray-900 font-bold"
 										// className={classes.headerTable}
 										style={{
 											...column.options.thStyle,
@@ -126,16 +126,16 @@ export default function CustomTableBody({
 								<tr
 									data-testid="customTable-tr"
 									key={generateNumbers(5)}
-									className="h-12 px-1 overflow-hidden border-b"
+									className="h-12 px-1 overflow-hidden"
 									// className={classes.cellTable}
 								>
 									{columns.map(column => (
 										<td
+											className="border"
 											data-testid="customTable-td"
 											key={generateNumbers(5)}
 											style={{
 												...column.options.tdStyle,
-												overflow: 'hidden',
 												minWidth: column.options.width + leftOverSize,
 												maxWidth: column.options.width + leftOverSize,
 												width: column.options.width + leftOverSize,
