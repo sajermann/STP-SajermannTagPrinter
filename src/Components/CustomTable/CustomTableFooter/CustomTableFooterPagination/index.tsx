@@ -1,3 +1,4 @@
+import Pagination from '../../../CustomPagination';
 import stylesToMakeStyles from './styles';
 
 type Props = {
@@ -43,12 +44,15 @@ export default function CustomTableFooterPagination({
 				// 	}}
 				// />
 				<Pagination
-					className="pagination-bar"
+					className="w-full flex justify-center"
 					currentPage={currentPage}
-					totalCount={data.length}
-					pageSize={PageSize}
+					totalCount={dataLength}
+					pageSize={itemsPerPag}
 					siblingCount={3}
-					onPageChange={page => setCurrentPage(page)}
+					onPageChange={page => {
+						setCurrentPage(page);
+						handlePagination(page);
+					}}
 				/>
 			)}
 		</div>

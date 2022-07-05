@@ -90,7 +90,7 @@ export default function Drawler({
 				<article
 					className={`relative w-screen ${
 						side === 'full' ? 'w-full' : 'max-w-lg'
-					} pb-10 flex flex-col space-y-6 h-full`}
+					} pb-10 flex flex-col h-full`}
 				>
 					{side === 'full' && (
 						<nav className="border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-800">
@@ -113,7 +113,7 @@ export default function Drawler({
 							</div>
 						</nav>
 					)}
-					{isOpen && children}
+					<div className="p-3">{isOpen && children}</div>
 				</article>
 			</section>
 			<section className=" w-screen h-full" onClick={() => setIsOpen(false)} />

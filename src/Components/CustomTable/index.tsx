@@ -52,9 +52,8 @@ export default function CustomTable({
 		setCurrentPage(1);
 	}
 
-	function handleItemsPerPage(event: any) {
+	function handleItemsPerPage(itemPerPag: number) {
 		const dataNow = [...dataFiltred];
-		const itemPerPag = parseInt(event.target.value, 10);
 		setItemsPerPag(itemPerPag);
 		setCurrentPage(1);
 		handleShowData(dataNow, itemPerPag);

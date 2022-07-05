@@ -33,13 +33,11 @@ export default function CustomTableFooterItemsPerPage({
 						border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700
 						focus:bg-white focus:border-blue-600 focus:outline-none w-52"
 						aria-label="Disabled select example"
-						onChange={handleItemsPerPage}
+						onChange={e => handleItemsPerPage(Number(e.target.value))}
 						id="selectItensPerPage"
-						value={itemsPerPag.toString()}
+						defaultValue={itemsPerPag}
 					>
-						<option selected value={5}>
-							5
-						</option>
+						<option value={5}>5</option>
 						<option value={10}>10</option>
 						<option value={15}>15</option>
 						<option value={20}>20</option>

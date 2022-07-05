@@ -1,4 +1,5 @@
 import TagType from '../../Types/TagType';
+import fixture from '../../Data/tags.json';
 
 async function postTagPrinter(tag: TagType): Promise<boolean> {
 	try {
@@ -18,12 +19,13 @@ async function postTagPrinter(tag: TagType): Promise<boolean> {
 
 async function getAllTagPrinter(): Promise<TagType[]> {
 	try {
-		const allTags = await sessionStorage.getItem('@TagPrinter:All');
-		if (allTags) {
-			const tags: TagType[] = JSON.parse(allTags);
-			return tags;
-		}
-		return [];
+		// const allTags = await sessionStorage.getItem('@TagPrinter:All');
+		// if (allTags) {
+		// 	const tags: TagType[] = JSON.parse(allTags);
+		// 	return tags;
+		// }
+		// return [];
+		return fixture;
 	} catch {
 		return [];
 	}
