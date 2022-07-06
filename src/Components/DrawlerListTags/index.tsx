@@ -1,28 +1,32 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect, useState } from 'react';
-import delay from '../../Utils/Delay';
 import Button from '../Button';
 import Drawler from '../Drawler';
 import tagPrinterServices from '../../Services/TagPrinter';
 import TagType from '../../Types/TagType';
 import CustomTable from '../CustomTable';
 import { FormatDateAndHour } from '../../Utils/StringVsDate';
+import delay from '../../Utils/Delay';
 
-export default function DrawlerListTags() {
+type Props = {
+	tagsAddeds: TagType[];
+	setTagsAddeds: (data: TagType[]) => void;
+};
+
+export default function DrawlerListTags({ tagsAddeds, setTagsAddeds }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [failed, setFailed] = useState(false);
-	const [openAdd, setOpenAdd] = useState(false);
 	const [data, setData] = useState<TagType[]>([]);
-	const [selectedRows, setSelectedRows] = useState<TagType[]>([]	);
+	const [selectedRows, setSelectedRows] = useState<TagType[]>([]);
 
 	async function handleSave() {
 		setIsLoading(true);
-
-		await delay(3000);
+		setTagsAddeds([...tagsAddeds, ...selectedRows]);
 		setIsLoading(false);
 		setSuccess(true);
+		await delay(1001);
+		setSelectedRows([]);
 	}
 
 	async function load() {
@@ -38,8 +42,30 @@ export default function DrawlerListTags() {
 
 	useEffect(() => console.log(selectedRows), [selectedRows]);
 
-	function handleSelect(e: React.MouseEvent<HTMLInputElement, MouseEvent>){
-console.log(e)
+	function handleAddItem(id: string) {
+		console.log('Add', id);
+		const itemsForAdd = [...selectedRows];
+		const itemForAdd = data.find(b => b.id === id);
+		if (!itemForAdd) {
+			return;
+		}
+		itemsForAdd.push(itemForAdd);
+		setSelectedRows(itemsForAdd);
+	}
+
+	function handleRemoveItem(id: string) {
+		setSelectedRows(selectedRows.filter(b => b.id !== id));
+	}
+
+	function handleSelect(event: React.MouseEvent<HTMLInputElement, MouseEvent>) {
+		const { checked, dataset } = event.target as HTMLInputElement;
+		if (checked && dataset.id) {
+			handleAddItem(dataset.id);
+			return;
+		}
+		if (dataset.id) {
+			handleRemoveItem(dataset.id);
+		}
 	}
 
 	const columns = [
@@ -47,7 +73,15 @@ console.log(e)
 			field: 'id',
 			header: 'Selecionar',
 			render: (id: string) => (
-				<input type="checkbox" className='accent-pink-500 h-6 w-6' data-id={id} onClick={handleSelect} />
+				<div className="flex items-center justify-center">
+					<input
+						defaultChecked={!!selectedRows.find(b => b.id === id)}
+						type="checkbox"
+						className="accent-pink-500 h-6 w-6"
+						data-id={id}
+						onClick={handleSelect}
+					/>
+				</div>
 			),
 			options: {
 				width: 50,
@@ -89,6 +123,7 @@ console.log(e)
 				Listagem
 			</Button>
 			<Drawler
+				disabledSaveButton={selectedRows.length === 0}
 				side="full"
 				isOpen={isOpen}
 				setIsOpen={e => setIsOpen(e)}
@@ -105,12 +140,7 @@ console.log(e)
 					setFailed,
 				}}
 			>
-				<CustomTable
-					isLoading={isLoading}
-					data={data}
-					handleClickAdd={() => setOpenAdd(true)}
-					columns={columns}
-				/>
+				<CustomTable isLoading={isLoading} data={data} columns={columns} />
 			</Drawler>
 		</>
 	);

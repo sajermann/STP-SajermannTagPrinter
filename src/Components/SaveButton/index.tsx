@@ -8,6 +8,7 @@ interface Props extends React.HTMLProps<HTMLButtonElement> {
 	type: 'button' | 'reset' | 'submit';
 	isLoading?: boolean;
 	onSave: () => void;
+	disabled?: boolean;
 	inSuccess?: {
 		success: boolean;
 		setSuccess: (data: boolean) => void;
@@ -25,6 +26,7 @@ export default function SaveButton({
 	onSave,
 	inSuccess,
 	inFailed,
+	disabled,
 	...props
 }: Props) {
 	const [successInternal, setSuccessInternal] = useState(false);
@@ -32,7 +34,7 @@ export default function SaveButton({
 
 	async function success() {
 		setSuccessInternal(true);
-		await delay(3000);
+		await delay(1000);
 		setSuccessInternal(false);
 		inSuccess?.setSuccess(false);
 		if (inSuccess?.setIsOpen) {
@@ -42,7 +44,7 @@ export default function SaveButton({
 
 	async function failed() {
 		setFailedInternal(true);
-		await delay(3000);
+		await delay(1000);
 		setFailedInternal(false);
 		inFailed?.setFailed(false);
 	}
@@ -76,6 +78,7 @@ export default function SaveButton({
 				</div>
 			)}
 			<button
+				disabled={disabled}
 				type={type}
 				className={`${styles.button} ${props.className} ${
 					successInternal && styles.success

@@ -153,7 +153,10 @@ export default function Home() {
 						>
 							Adicionar
 						</Button>
-						<DrawlerListTags />
+						<DrawlerListTags
+							tagsAddeds={tagsAddeds}
+							setTagsAddeds={setTagsAddeds}
+						/>
 					</div>
 				</form>
 			</div>

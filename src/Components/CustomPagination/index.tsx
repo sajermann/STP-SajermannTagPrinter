@@ -1,3 +1,4 @@
+import { generateGuid } from '../../Utils/Random';
 import { usePagination, DOTS } from './usePagination';
 // import './pagination.scss';
 
@@ -53,7 +54,10 @@ function Pagination({
 			{paginationRange.map(pageNumber => {
 				if (pageNumber === DOTS) {
 					return (
-						<li className="px-3 h-8 text-center my-auto mx-1 flex border-box box-border items-center rounded-2xl leading-normal text-sm min-w-[32px] hover:cursor-pointer hover:bg-slate-400 transition-colors se dots">
+						<li
+							key={generateGuid()}
+							className="px-3 h-8 text-center my-auto mx-1 flex border-box box-border items-center rounded-2xl leading-normal text-sm min-w-[32px] hover:cursor-pointer hover:bg-slate-400 transition-colors se dots"
+						>
 							&#8230;
 						</li>
 					);
@@ -61,6 +65,7 @@ function Pagination({
 
 				return (
 					<li
+						key={pageNumber}
 						className={`px-3 h-8 text-center my-auto mx-1 flex border-box box-border items-center rounded-2xl leading-normal text-sm min-w-[32px] hover:cursor-pointer hover:bg-slate-400 transition-colors se ${
 							pageNumber === currentPage && 'bg-slate-600'
 						}`}

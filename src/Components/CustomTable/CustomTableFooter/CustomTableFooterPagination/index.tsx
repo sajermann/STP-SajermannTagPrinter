@@ -1,5 +1,4 @@
 import Pagination from '../../../CustomPagination';
-import stylesToMakeStyles from './styles';
 
 type Props = {
 	currentPage: number;
@@ -19,30 +18,10 @@ export default function CustomTableFooterPagination({
 	handlePagination,
 }: Props) {
 	return (
-		<div
-			className="grid-cols-6"
-			// className={classes.gridDetails}
-			// item
-			// xs={12}
-			// sm={6}
-			// md={6}
-			// lg={6}
-			// xl={6}
-		>
+		<div className="grid-cols-6">
 			{isLoading ? (
 				<div>skeleton</div>
 			) : (
-				// <Pagination
-				// 	className={classes.pagination}
-				// 	count={Math.ceil(dataLength / itemsPerPag)}
-				// 	showFirstButton
-				// 	showLastButton
-				// 	page={currentPage}
-				// 	onChange={(event, page) => {
-				// 		setCurrentPage(page);
-				// 		handlePagination(page);
-				// 	}}
-				// />
 				<Pagination
 					className="w-full flex justify-center"
 					currentPage={currentPage}

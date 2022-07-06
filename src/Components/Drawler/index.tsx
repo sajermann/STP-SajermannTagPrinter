@@ -20,6 +20,7 @@ type Props = {
 	isLoading?: boolean;
 	setIsOpen: (isOpen: boolean) => void;
 	title?: string;
+	disabledSaveButton?: boolean;
 	inSuccess?: {
 		success: boolean;
 		setSuccess: (data: boolean) => void;
@@ -43,6 +44,7 @@ export default function Drawler({
 	onSave,
 	inSuccess,
 	inFailed,
+	disabledSaveButton,
 }: Batata) {
 	const [configSide, setConfigSide] = useState({ side: '', translate: '' });
 
@@ -104,6 +106,7 @@ export default function Drawler({
 								<h2 className="text-white">{title}</h2>
 
 								<SaveButton
+									disabled={disabledSaveButton}
 									onSave={onSave}
 									type="button"
 									isLoading={isLoading}
