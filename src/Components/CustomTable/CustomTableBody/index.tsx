@@ -39,7 +39,7 @@ export default function CustomTableBody({
 		// Colunas menos um tanto de respiro e divide pela quantidade de colunas
 		// Que essa tabela terá para que seja distribuída posteriormente e não fique
 		// Com espaços vagos nas laterais
-		setLeftOverSize((widthScreen - sizeAllColumns - 35) / columns.length);
+		setLeftOverSize((widthScreen - sizeAllColumns - 29) / columns.length);
 	}, [widthScreen]);
 
 	const Skeletun = memo(() => {
@@ -54,6 +54,7 @@ export default function CustomTableBody({
 					<tr
 						key={generateNumbers(5)}
 						// className={classes.cellTable}
+						className="h-12 py-0 px-4"
 					>
 						{columns.map(column => (
 							<td
@@ -88,7 +89,7 @@ export default function CustomTableBody({
 		>
 			<div
 				// className={classes.gridMain}
-				className="h-[52vh] w-[100%] relative overflow-auto my-4"
+				className="h-[52vh] w-[100%] relative overflow-auto my-4 border-2"
 				style={{ scrollSnapType: 'x mandatory' }}
 			>
 				<div
@@ -126,7 +127,7 @@ export default function CustomTableBody({
 								<tr
 									data-testid="customTable-tr"
 									key={generateNumbers(5)}
-									className="h-12 px-1 overflow-hidden"
+									className="h-12 py-0 px-1 overflow-hidden"
 									// className={classes.cellTable}
 								>
 									{columns.map(column => (
