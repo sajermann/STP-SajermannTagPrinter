@@ -15,9 +15,7 @@ export default function DrawlerListTags() {
 	const [failed, setFailed] = useState(false);
 	const [openAdd, setOpenAdd] = useState(false);
 	const [data, setData] = useState<TagType[]>([]);
-	const [selectedRows, setSelectedRows] = useState<ReadonlySet<number>>(
-		() => new Set()
-	);
+	const [selectedRows, setSelectedRows] = useState<TagType[]>([]	);
 
 	async function handleSave() {
 		setIsLoading(true);
@@ -40,17 +38,16 @@ export default function DrawlerListTags() {
 
 	useEffect(() => console.log(selectedRows), [selectedRows]);
 
+	function handleSelect(e: React.MouseEvent<HTMLInputElement, MouseEvent>){
+console.log(e)
+	}
+
 	const columns = [
 		{
 			field: 'id',
-			header: 'Ações',
+			header: 'Selecionar',
 			render: (id: string) => (
-				<div>Batata</div>
-				// <MenuOptionsForTable
-				// 	handleDelete={handleOpenDelete}
-				// 	handleUpdate={handleOpenUpdate}
-				// 	id={id}
-				// />
+				<input type="checkbox" className='accent-pink-500 h-6 w-6' data-id={id} onClick={handleSelect} />
 			),
 			options: {
 				width: 50,
