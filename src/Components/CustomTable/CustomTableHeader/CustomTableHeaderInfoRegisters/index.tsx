@@ -10,18 +10,8 @@ export default function CustomTableHeaderInfoRegisters({
 	isLoading,
 }: Props) {
 	return (
-		<div
-			className="w-full"
-			// className={classes.gridDetails}
-			// item
-			// xs={12}
-			// sm={6}
-			// md={6}
-			// lg={6}
-			// xl={6}
-		>
+		<div className="w-full">
 			{isLoading ? (
-				// <Skeleton variant="rectangular" width="60%" height={32} />
 				<div>Skeleton</div>
 			) : (
 				<>

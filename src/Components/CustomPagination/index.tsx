@@ -67,7 +67,7 @@ function Pagination({
 					<li
 						key={pageNumber}
 						className={`px-3 h-8 text-center my-auto mx-1 flex border-box box-border items-center rounded-2xl leading-normal text-sm min-w-[32px] hover:cursor-pointer hover:bg-slate-400 transition-colors se ${
-							pageNumber === currentPage && 'bg-slate-600'
+							pageNumber === currentPage && 'bg-slate-600 text-white'
 						}`}
 						onClick={() => onPageChange(Number(pageNumber))}
 						onKeyPress={() => onPageChange(Number(pageNumber))}

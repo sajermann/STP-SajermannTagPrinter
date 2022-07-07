@@ -1,6 +1,5 @@
 import CustomTableFooterItemsPerPage from './CustomTableFooterItemsPerPage';
 import CustomTableFooterPagination from './CustomTableFooterPagination';
-import stylesForMakeStyles from './styles';
 
 type Props = {
 	handleItemsPerPage: (data: any) => void;
@@ -22,26 +21,16 @@ export default function CustomTableFooter({
 	handlePagination,
 }: Props) {
 	return (
-		<div
-			className="grid-cols-12"
-			// className={classes.gridItemFooter}
-			// item
-			// xs={12}
-			// sm={12}
-			// md={12}
-			// lg={12}
-			// xl={12}
-		>
-			<div
-			// container spacing={1}
-			>
-				<div className="w-full border border-b-white my-4" />
+		<div className="grid">
+			<div className=" grid grid-cols-12 w-full border border-b-white my-4" />
+			<div className="grid grid-cols-2 flex-row items-center justify-items-center">
 				<CustomTableFooterItemsPerPage
 					isLoading={isLoading}
 					dataLength={dataLength}
 					handleItemsPerPage={handleItemsPerPage}
 					itemsPerPag={itemsPerPag}
 				/>
+
 				<CustomTableFooterPagination
 					isLoading={isLoading}
 					currentPage={currentPage}

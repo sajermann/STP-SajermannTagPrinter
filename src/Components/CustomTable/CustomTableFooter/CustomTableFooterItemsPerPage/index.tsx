@@ -12,16 +12,7 @@ export default function CustomTableFooterItemsPerPage({
 	isLoading,
 }: Props) {
 	return (
-		<div
-			className="grid-cols-6"
-			// className={classes.gridDetails}
-			// item
-			// xs={12}
-			// sm={6}
-			// md={6}
-			// lg={6}
-			// xl={6}
-		>
+		<div className="flex gap-4 items-center justify-center">
 			{isLoading ? (
 				<div>Skeleton</div>
 			) : (

@@ -2,8 +2,6 @@ import { memo, useEffect, useState } from 'react';
 import { generateNumbers } from '../../../Utils/Random';
 import UseWindowDimensions from '../../../Utils/UseWindowDimensions';
 
-import stylesForMakeStyles from './styles';
-
 type Props = {
 	data: any[];
 	columns: any[];
@@ -51,11 +49,7 @@ export default function CustomTableBody({
 		return (
 			<>
 				{quantityRows.map(() => (
-					<tr
-						key={generateNumbers(5)}
-						// className={classes.cellTable}
-						className="h-12 py-0 px-4"
-					>
+					<tr key={generateNumbers(5)} className="h-12 py-0 px-4">
 						{columns.map(column => (
 							<td
 								key={generateNumbers(5)}
@@ -76,26 +70,12 @@ export default function CustomTableBody({
 	});
 
 	return (
-		<div
-			className="pt-0"
-			// className="grid-cols-12"
-			// className={classes.gridMainExternal}
-			// item
-			// xs={12}
-			// sm={12}
-			// md={12}
-			// lg={12}
-			// xl={12}
-		>
+		<div className="pt-0">
 			<div
-				// className={classes.gridMain}
 				className="h-[52vh] w-[100%] relative overflow-auto my-4 border-2"
 				style={{ scrollSnapType: 'x mandatory' }}
 			>
-				<div
-					className="flex flex-nowrap"
-					// className={classes.gridMainInternal}
-				>
+				<div className="flex flex-nowrap">
 					<table
 						data-testid="customTable-table"
 						style={{ borderCollapse: 'collapse' }}
@@ -106,8 +86,7 @@ export default function CustomTableBody({
 									<th
 										data-testid="customTable-th"
 										key={generateNumbers(5)}
-										className="h-14 sticky top-0 px-1 border z-[1] bg-gray-900 font-bold"
-										// className={classes.headerTable}
+										className="h-14 sticky top-0 px-1 border z-[1] bg-gray-900 font-bold text-white"
 										style={{
 											...column.options.thStyle,
 											overflow: 'hidden',
@@ -128,7 +107,6 @@ export default function CustomTableBody({
 									data-testid="customTable-tr"
 									key={generateNumbers(5)}
 									className="h-12 py-0 px-1 overflow-hidden"
-									// className={classes.cellTable}
 								>
 									{columns.map(column => (
 										<td
@@ -154,7 +132,6 @@ export default function CustomTableBody({
 							{data.length === 0 && !isLoading && (
 								<tr
 									data-testid="customTable-tr"
-									// className={classes.noResults}
 									className="w-[98vw] font-black text-5xl"
 								>
 									<td data-testid="customTable-td" colSpan={columns.length}>

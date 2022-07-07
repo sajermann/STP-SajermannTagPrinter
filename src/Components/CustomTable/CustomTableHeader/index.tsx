@@ -22,7 +22,7 @@ export default function CustomTableHeader({
 	customElementHeader,
 }: Props) {
 	return (
-		<div className=" bg-slate-400">
+		<div className="">
 			<div className="grid grid-cols-3 ">
 				<CustomTableHeaderSearch
 					isLoading={isLoading}
