@@ -1,5 +1,5 @@
 
-# 🚀 STP-SajermannTagPrinter
+# STP-SajermannTagPrinter
 
 Projeto Criado para impressão de etiquetas. Usuário tem a possibilidade de informar o produto, a quantidade e a data e lançar ele para impressão, todos os lançamentos ficam salvos para posterior consulta na parte de listagem.
 
