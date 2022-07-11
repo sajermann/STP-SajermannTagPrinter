@@ -12,9 +12,9 @@ import DrawlerListTags from '../../Components/DrawlerListTags';
 
 const defaultValue = {
 	id: generateGuid(),
-	date: '2022-10-10',
-	product: 'Test',
-	quantity: '60',
+	date: '',
+	product: '',
+	quantity: '',
 	username: 'Sajermann',
 	isSelected: false,
 };

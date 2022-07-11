@@ -18,7 +18,7 @@ export default function DrawlerMenu() {
 			</ButtonIconHeader>
 
 			<Drawler side="left" isOpen={isOpen} setIsOpen={e => setIsOpen(e)}>
-				<div>Aqui vai ficar o Menu</div>
+				<div>Aqui pode ficar o Menu</div>
 			</Drawler>
 		</>
 	);

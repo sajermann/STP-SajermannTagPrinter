@@ -17,7 +17,7 @@ export default function DrawlerPerfil() {
 				<UserSquare size={32} />
 			</ButtonIconHeader>
 			<Drawler side="right" isOpen={isOpen} setIsOpen={e => setIsOpen(e)}>
-				<div>Aqui vai ficar o Menu</div>
+				<div>Aqui pode ficar informações de Perfil</div>
 			</Drawler>
 		</>
 	);
